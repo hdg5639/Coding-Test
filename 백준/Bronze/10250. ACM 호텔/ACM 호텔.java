@@ -12,9 +12,8 @@ public class Main {
         }
         for (String[] row : s) {
             int temp = Integer.parseInt(row[2]) % Integer.parseInt(row[0]);
-            int result = (temp == 0?Integer.parseInt(row[0]):temp) * 100 +
-                    (int)Math.ceil(Double.parseDouble(row[2]) / Double.parseDouble(row[0]));
-            System.out.println(result);
+            System.out.println((temp == 0?Integer.parseInt(row[0]):temp) * 100 +
+                    (int)Math.ceil(Double.parseDouble(row[2]) / Double.parseDouble(row[0])));
         }
     }
 }

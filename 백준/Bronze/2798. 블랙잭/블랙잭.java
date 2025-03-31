@@ -10,19 +10,20 @@ public class Main {
                cards = Arrays.stream(br.readLine().split(" ")).mapToInt(Integer::parseInt).sorted().toArray();
         System.out.println(search(n[1], cards));
     }
-    private static long search(int target, int[] cards){
-        int result = target;
-        for(int card : cards){
-            for(int card2 : Arrays.stream(cards)
-                    .filter(card2 -> target - card > card2 && card != card2).toArray()){
-                for(int card3 : Arrays.stream(cards)
-                        .filter(card3 -> target - (card + card2) >= card3
-                        && card != card3 && card2 != card3).toArray()){
-                    int tmp = card + card2 + card3;
-                    if(result > target - tmp) result = target - tmp;
+    private static int search(int target, int[] cards) {
+        int max = 0;
+        int n = cards.length;
+
+        for(int i = 0; i < n - 2; i++) {
+            for(int j = i + 1; j < n - 1; j++) {
+                for(int k = j + 1; k < n; k++) {
+                    int sum = cards[i] + cards[j] + cards[k];
+                    if(sum <= target && sum > max) {
+                        max = sum;
+                    }
                 }
             }
         }
-        return target - result;
+        return max;
     }
 }

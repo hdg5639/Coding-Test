@@ -9,7 +9,7 @@ public class Main {
         List<Person> people = new ArrayList<>();
         for (int i = 0; i < count; i++) {
             String[] input = br.readLine().split(" ");
-            people.add(new Person(Integer.parseInt(input[0]), i, input[1]));
+            people.add(new Person(Integer.parseInt(input[0]), input[1], i));
         }
 
         people.sort(Comparator
@@ -19,21 +19,22 @@ public class Main {
         StringBuilder builder = new StringBuilder();
         for (Person p : people)
             builder.append(p.age).append(" ").append(p.name).append("\n");
-        
+
         bw.write(builder.toString());
         bw.flush();
         bw.close();
+        br.close();
     }
 
     public static class Person {
         int age;
-        int count;
         String name;
+        int count;
 
-        public Person(int age, int count, String name){
+        public Person(int age, String name, int count){
             this.age = age;
-            this.count = count;
             this.name = name;
+            this.count = count;
         }
     }
 }

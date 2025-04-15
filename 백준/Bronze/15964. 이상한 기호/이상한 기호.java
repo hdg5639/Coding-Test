@@ -6,7 +6,7 @@ public class Main {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
         StringBuilder sb = new StringBuilder();
-        int[] numbers = Arrays.stream(br.readLine().split(" ")).mapToInt(Integer::parseInt).toArray();
+        long[] numbers = Arrays.stream(br.readLine().split(" ")).mapToLong(Long::parseLong).toArray();
         sb.append(func(numbers[0], numbers[1])).append('\n');
         bw.write(sb.toString());
         bw.flush();
@@ -14,7 +14,7 @@ public class Main {
         br.close();
     }
 
-    private static int func (int a, int b) {
+    private static long func (long a, long b) {
         return (a+b)*(a-b);
     }
 }

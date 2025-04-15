@@ -1,24 +1,28 @@
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.util.ArrayList;
-import java.util.List;
+import java.io.*;
+import java.util.Arrays;
 
 public class Main {
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        String[] line = br.readLine().split(" ");
-        int tmp = 0;
-        for(String s : line) {
-            if (tmp != 0) {
-                if (tmp + 1 != Integer.parseInt(s) && tmp - 1 != Integer.parseInt(s)) {
-                    System.out.println("mixed");
-                    return;
-                }
+        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
+        int[] n = Arrays.stream(br.readLine().split(" ")).mapToInt(Integer::parseInt).toArray();
+        int tmp = n[0];
+        for (int num : n) {
+            if (Math.abs(tmp - num) > 1) {
+                bw.write("mixed\n");
+                bw.flush();
+                br.close();
+                bw.close();
+                return;
             }
-            tmp = Integer.parseInt(s);
+            tmp = num;
         }
-        if(tmp == 8) System.out.println("ascending");
-        else System.out.println("descending");
+        if (n[0]== n.length)
+            bw.write("descending\n");
+        else
+            bw.write("ascending\n");
+        bw.flush();
+        br.close();
+        bw.close();
     }
 }

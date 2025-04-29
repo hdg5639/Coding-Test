@@ -14,9 +14,8 @@ public class Main {
 
         int temp = targets[1], i = targets[0]-1, result = 0;
         while (temp > 0) {
-            int tmp = temp / coins[i];
-            if (tmp > 0) {
-                result += tmp;
+            if (temp / coins[i] > 0) {
+                result += temp / coins[i];
                 temp = temp % coins[i];
                 i--;
             } else {

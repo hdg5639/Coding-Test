@@ -37,67 +37,62 @@ class Solution
 {
 	public static void main(String args[]) throws Exception
 	{
-		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
+		Scanner sc = new Scanner(System.in);
 
-        int T;
-        T=Integer.parseInt(br.readLine());
+		int T;
+		T = sc.nextInt();
 
-        for(int test_case = 1; test_case <= T; test_case++)
-        {
-            bw.write("#"+test_case);
-            bw.newLine();
+		for(int test_case = 1; test_case <= T; test_case++)
+		{
+			int n = sc.nextInt();
 
-            int n = Integer.parseInt(br.readLine());
-            int[][] matrix = new int[n][n];
-            inputMatrix(matrix, br);
+			int[][] matrix = new int[n][n];
+			int[][] matrix90 = new int[n][n];
+			int[][] matrix180 = new int[n][n];
+			int[][] matrix270 = new int[n][n];
 
-            writeMatrix(cacheMatrix(matrix), bw);
-        }
-        bw.flush();
-        br.close();
-        bw.close();
-    }
+			for (int i = 0; i < n; i++) {
+				for (int j = 0; j < n; j++) {
+					matrix[i][j] = sc.nextInt();
+				}
+			}
 
-    private static void inputMatrix(int[][] matrix, BufferedReader br) throws IOException {
-        for (int i = 0; i < matrix.length; i++) {
-            int[] row = Arrays.stream(br.readLine().split(" ")).mapToInt(Integer::parseInt).toArray();
-            matrix[i]=row;
-        }
-    }
+			for (int i = 0; i < n; i++) {
+				for (int j = 0; j < n; j++) {
+					// 시계 방향 90도
+					matrix90[i][j] = matrix[n - 1 - j][i];
 
-    // 회당 90도 회전
-    private static int[][] rotateMatrix(int[][] matrix) {
-        // 복사
-        int[][] temp = Arrays.stream(matrix).map(int[]::clone).toArray(int[][]::new);
+					// 시계 방향 180도
+					matrix180[i][j] = matrix[n - 1 - i][n - 1 - j];
 
-        for (int i = 0; i < matrix.length; i++) {
-            for (int j = matrix.length-1; j >= 0; j--) {
-                matrix[i][j] = temp[matrix.length-j-1][i];
-            }
-        }
-        return matrix;
-    }
+					// 시계 방향 270도
+					matrix270[i][j] = matrix[j][n - 1 - i];
+				}
+			}
 
-    private static List<int[][]> cacheMatrix(int[][] matrix) {
-        List<int[][]> cache = new ArrayList<>();
-        while(cache.size() < 3) {
-            cache.add(Arrays.stream(rotateMatrix(matrix)).map(int[]::clone).toArray(int[][]::new));
-        }
-        return cache;
-    }
+			System.out.println("#" + test_case);
 
-    private static void writeMatrix(List<int[][]> cache, BufferedWriter bw) throws IOException {
-        StringBuilder sb = new StringBuilder();
-        for (int i = 0; i < cache.get(0).length; i++) {
-            for (int[][] matrix : cache) {
-                sb.append(Arrays.stream(matrix[i])
-                                .mapToObj(String::valueOf)
-                                .collect(Collectors.joining("")))
-                        .append(" ");
-            }
-            sb.append("\n");
-        }
-        bw.write(sb.toString());
-    }
+			for (int i = 0; i < n; i++) {
+				for (int j = 0; j < n; j++) {
+					System.out.print(matrix90[i][j]);
+				}
+
+				System.out.print(" ");
+
+				for (int j = 0; j < n; j++) {
+					System.out.print(matrix180[i][j]);
+				}
+
+				System.out.print(" ");
+
+				for (int j = 0; j < n; j++) {
+					System.out.print(matrix270[i][j]);
+				}
+
+				System.out.println();
+			}
+		}
+
+		sc.close();
+	}
 }
